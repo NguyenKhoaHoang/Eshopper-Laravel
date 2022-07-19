@@ -14,14 +14,10 @@ class HomeController extends Controller
     {
         $sliders = Slider::latest()->get();
         $categories = Category::where('parent_id', 0)->get();
+        $categoriesLimit = Category::where('parent_id', 0)->take(3)->get();
         $products = Product::latest()->take(6)->get();
         $productsRecommend = Product::latest('views_count', 'desc')->take(12)->get();
 
-        return view('home.home', compact('sliders', 'categories', 'products', 'productsRecommend'));
-    }
-
-    public function test()
-    {
-        return view('test');
+        return view('home.home', compact('sliders', 'categories', 'products', 'productsRecommend', 'categoriesLimit'));
     }
 }
