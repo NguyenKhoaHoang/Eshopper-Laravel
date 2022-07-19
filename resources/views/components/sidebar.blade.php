@@ -8,15 +8,18 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordian" href="#sportswear_{{ $category->id }}">
-                                <span class="badge pull-right">
-                                    @if ($category->categoryChildrent->count())
-                                        <i class="fa fa-plus"></i>
-                                    @endif
-
-                                </span>
-                                {{ $category->name }}
-                            </a>
+                            @if ($category->categoryChildrent->count())
+                                <a data-toggle="collapse" data-parent="#accordian"
+                                    href="#sportswear_{{ $category->id }}">
+                                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                                    {{ $category->name }}
+                                </a>
+                            @else
+                                <a 
+                                    href="{{ route('category.product', ['slug' => $category->slug, 'id' => $category->id]) }}">
+                                    {{ $category->name }}
+                                </a>
+                            @endif
                         </h4>
                     </div>
 
@@ -24,7 +27,11 @@
                         <div class="panel-body">
                             <ul>
                                 @foreach ($category->categoryChildrent as $categoryChildrent)
-                                    <li><a href="#">{{ $categoryChildrent->name }} </a></li>
+                                    <li><a
+                                            href="{{ route('category.product', ['slug' => $categoryChildrent->slug, 'id' => $categoryChildrent->id]) }}">
+                                            {{ $categoryChildrent->name }}
+                                        </a>
+                                    </li>
                                 @endforeach
 
 
